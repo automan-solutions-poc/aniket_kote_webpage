@@ -99,7 +99,7 @@ export const Hero = ({ isLoaded }: { isLoaded: boolean }) => {
                 className="flex items-center gap-2 px-8 py-4 bg-accent text-bg rounded-2xl font-bold hover:scale-105 transition-all shadow-lg shadow-accent/20"
               >
                 <Download size={20} />
-                Data Analyst Resume
+                My resume
               </a>
             </MagneticButton>
             <div className="flex gap-3">

@@ -17,7 +17,7 @@ export const portfolioData = {
   phoneAlt: "+44-7823704335",
   linkedin: "https://linkedin.com/in/aniket-kote-a14826169",
   github: "https://github.com/Aniket-Kote",
-  resumeLink: "https://drive.google.com/file/d/1XyREWrKKXJ4ploehYCm9pJ4UOM357T0e/view?usp=sharing",
+  resumeLink: "https://drive.google.com/file/d/151t1eeVpM4TUVdc4JXMOWuixNYykDOFY/view?usp=sharing",
   location: "London, UK",
   
   hero: {
