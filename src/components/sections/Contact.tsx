@@ -24,8 +24,8 @@ export const Contact = () => {
                 I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions.
               </p>
               
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <MagneticButton className="w-full">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                <MagneticButton style={{ width: 'max-content' }}>
                   <a href={`mailto:${portfolioData.email}`} className="flex flex-col items-center md:items-start gap-4 p-6 bg-bg/10 rounded-2xl hover:bg-bg/20 transition-all group">
                     <div className="p-3 bg-bg/10 rounded-xl group-hover:scale-110 transition-transform">
                       <Mail size={24} />
