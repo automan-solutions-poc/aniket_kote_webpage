@@ -18,7 +18,7 @@ export const portfolioData = {
   linkedin: "https://linkedin.com/in/aniket-kote-a14826169",
   github: "https://github.com/Aniket-Kote",
   resumeLink: "https://drive.google.com/file/d/151t1eeVpM4TUVdc4JXMOWuixNYykDOFY/view?usp=sharing",
-  location: "London, UK",
+  location: "India | UK",
   
   hero: {
     greeting: "Hey, I'm",
