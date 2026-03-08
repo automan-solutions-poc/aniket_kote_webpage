@@ -2,6 +2,17 @@ import React, { useMemo, useState, useEffect } from 'react';
 import { motion, useSpring, useMotionValue, useScroll, useTransform } from 'motion/react';
 
 export const BackgroundAnimation = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const { scrollY } = useScroll();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -38,24 +49,31 @@ export const BackgroundAnimation = () => {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden bg-bg">
-      {/* Interactive Glow */}
-      <motion.div
-        style={{
-          x: glowX,
-          y: glowY,
-          translateX: '-50%',
-          translateY: '-50%',
-        }}
-        className="absolute w-[600px] h-[600px] bg-accent/5 blur-[120px] rounded-full"
-      />
+      {/* Interactive Glow - Restricted on Mobile */}
+      {!isMobile && (
+        <motion.div
+          style={{
+            x: glowX,
+            y: glowY,
+            translateX: '-50%',
+            translateY: '-50%',
+            willChange: 'transform',
+          }}
+          className="absolute w-[600px] h-[600px] bg-accent/5 blur-[120px] rounded-full"
+        />
+      )}
 
       {/* Noise Texture */}
       <div className="absolute inset-0 noise opacity-[0.02]" />
       
-      {/* Dynamic Mesh Gradients */}
+      {/* Dynamic Mesh Gradients - Simplified on Mobile */}
       <motion.div
-        style={{ y: y1, rotate }}
-        animate={{
+        style={{
+          y: y1,
+          rotate,
+          willChange: 'transform'
+        }}
+        animate={isMobile ? {} : {
           scale: [1, 1.2, 1],
           x: [0, 50, 0],
         }}
@@ -64,41 +82,50 @@ export const BackgroundAnimation = () => {
           repeat: Infinity,
           ease: "linear",
         }}
-        className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-accent/10 blur-[120px] rounded-full"
+        className={`absolute top-[-20%] left-[-10%] ${isMobile ? 'w-[80%] h-[80%] opacity-20 blur-[80px]' : 'w-[60%] h-[60%] opacity-100 blur-[120px]'} bg-accent/10 rounded-full`}
       />
       
-      <motion.div
-        style={{ y: y2, rotate: -rotate }}
-        animate={{
-          scale: [1.2, 1, 1.2],
-          x: [0, -50, 0],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-        className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-emerald-500/10 blur-[120px] rounded-full"
-      />
+      {!isMobile && (
+        <motion.div
+          style={{
+            y: y2,
+            rotate: -rotate,
+            willChange: 'transform'
+          }}
+          animate={{
+            scale: [1.2, 1, 1.2],
+            x: [0, -50, 0],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-emerald-500/10 blur-[120px] rounded-full"
+        />
+      )}
 
-      <motion.div
-        animate={{
-          opacity: [0.05, 0.1, 0.05],
-          scale: [1, 1.1, 1],
-        }}
-        transition={{
-          duration: 15,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="absolute top-[20%] right-[10%] w-[40%] h-[40%] bg-blue-500/5 blur-[100px] rounded-full"
-      />
+      {/* Reduced background complexity on mobile */}
+      {!isMobile && (
+        <motion.div
+          animate={{
+            opacity: [0.05, 0.1, 0.05],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-[20%] right-[10%] w-[40%] h-[40%] bg-blue-500/5 blur-[100px] rounded-full"
+        />
+      )}
 
       {/* Animated Grid */}
-      <div className="absolute inset-0 grid-pattern opacity-20" />
+      <div className="absolute inset-0 grid-pattern opacity-10 md:opacity-20" />
       
-      {/* Floating Particles */}
-      {particles.map((p) => (
+      {/* Floating Particles - Fewer on mobile */}
+      {particles.slice(0, isMobile ? 8 : 20).map((p) => (
         <motion.div
           key={p.id}
           initial={{ opacity: 0 }}
@@ -120,6 +147,7 @@ export const BackgroundAnimation = () => {
             top: p.top,
             left: p.left,
             filter: 'blur(1px)',
+            willChange: 'transform, opacity',
           }}
         />
       ))}
