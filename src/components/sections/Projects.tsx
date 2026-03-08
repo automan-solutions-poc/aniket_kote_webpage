@@ -3,11 +3,14 @@ import { ChevronRight } from 'lucide-react';
 import { SectionHeading } from '../SectionHeading';
 import { ProjectCard } from '../ProjectCard';
 import { portfolioData } from '../../data/portfolio';
+import { Reveal } from '../Reveal';
 
 export const Projects = () => {
   return (
     <section id="projects" className="py-24 px-6">
       <div className="max-w-7xl mx-auto">
+        <Reveal width="100%">
+          <>
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <SectionHeading subtitle="Handpicked projects showcasing automation and data analysis.">
             Featured Projects
@@ -22,15 +25,17 @@ export const Projects = () => {
           </a>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {portfolioData.projects.map((project, index) => (
-            <ProjectCard 
-              key={index}
-              index={index}
-              {...project}
-            />
-          ))}
-        </div>
+            <div className="grid md:grid-cols-2 gap-8">
+              {portfolioData.projects.map((project, index) => (
+                <ProjectCard
+                  key={index}
+                  index={index}
+                  {...project}
+                />
+              ))}
+            </div>
+          </>
+        </Reveal>
       </div>
     </section>
   );

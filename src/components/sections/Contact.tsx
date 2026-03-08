@@ -3,18 +3,14 @@ import { motion } from 'motion/react';
 import { Mail, Phone, Linkedin } from 'lucide-react';
 import { MagneticButton } from '../MagneticButton';
 import { portfolioData } from '../../data/portfolio';
+import { Reveal } from '../Reveal';
 
 export const Contact = () => {
   return (
     <section id="contact" className="py-24 px-6">
       <div className="max-w-7xl mx-auto">
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="glass rounded-[3rem] overflow-hidden"
-        >
+        <Reveal width="100%">
+        <div className="glass rounded-[3rem] overflow-hidden">
           <div className="p-12 md:p-20 bg-accent text-bg text-center md:text-left">
             <div className="max-w-4xl mx-auto md:mx-0">
               <h2 className="text-5xl md:text-7xl font-bold mb-8 tracking-tighter">
@@ -64,7 +60,8 @@ export const Contact = () => {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
+        </Reveal>
       </div>
     </section>
   );

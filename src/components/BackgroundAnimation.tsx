@@ -1,13 +1,18 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { motion, useSpring, useMotionValue } from 'motion/react';
+import { motion, useSpring, useMotionValue, useScroll, useTransform } from 'motion/react';
 
 export const BackgroundAnimation = () => {
+  const { scrollY } = useScroll();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
   const springConfig = { damping: 25, stiffness: 150 };
   const glowX = useSpring(mouseX, springConfig);
   const glowY = useSpring(mouseY, springConfig);
+
+  const y1 = useTransform(scrollY, [0, 1000], [0, 200]);
+  const y2 = useTransform(scrollY, [0, 1000], [0, -200]);
+  const rotate = useTransform(scrollY, [0, 2000], [0, 45]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -49,10 +54,10 @@ export const BackgroundAnimation = () => {
       
       {/* Dynamic Mesh Gradients */}
       <motion.div
+        style={{ y: y1, rotate }}
         animate={{
           scale: [1, 1.2, 1],
           x: [0, 50, 0],
-          y: [0, 30, 0],
         }}
         transition={{
           duration: 20,
@@ -63,10 +68,10 @@ export const BackgroundAnimation = () => {
       />
       
       <motion.div
+        style={{ y: y2, rotate: -rotate }}
         animate={{
           scale: [1.2, 1, 1.2],
           x: [0, -50, 0],
-          y: [0, -30, 0],
         }}
         transition={{
           duration: 25,
